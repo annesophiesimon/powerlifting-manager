@@ -1,7 +1,11 @@
 package com.bptn.powerlifting;
 
+import java.util.Map;
 import java.util.Scanner;
 
+import org.fusesource.jansi.Ansi;
+
+import com.bptn.powerlifting.models.Barbell;
 import com.bptn.powerlifting.models.WorkoutPlan;
 
 public class Main {
@@ -14,7 +18,8 @@ public class Main {
 		// Menu loop
 		do {
 
-			System.out.println("************************************************************");
+			System.out
+					.println(Ansi.ansi().fgMagenta().a("************************************************************"));
 			System.out.println("*                   Powerlifting App Main Menu             *");
 			System.out.println("************************************************************");
 			System.out.println("Welcome!");
@@ -49,6 +54,8 @@ public class Main {
 				break;
 			case 5:
 				System.out.println("Barbell Loading Guide");
+				createBarbellLoad(scanner);
+
 				break;
 			case 6:
 				System.out.println("Exit");
@@ -122,6 +129,21 @@ public class Main {
 
 		// Create and return the WorkoutPlan object
 		return new WorkoutPlan(movement, goalWeight, numSets, experienceLevel);
+	}
+
+	private static void createBarbellLoad(Scanner scanner) {
+		// ask target weight
+		double targetWeight = 0.0;
+		System.out.println("Please enter the weight of your choice");
+		// TO DO: handle try/catch for wrong input
+		targetWeight = scanner.nextDouble();
+		System.out.println();
+
+		Barbell barbell = new Barbell(targetWeight);
+
+		Map<Double, Integer> plateLoad = barbell.calculatePlateLoad();
+		barbell.displayPlateRecommendation(plateLoad);
+
 	}
 
 }
