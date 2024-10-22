@@ -1,11 +1,14 @@
 package com.bptn.powerlifting;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Scanner;
 
 import org.fusesource.jansi.Ansi;
 
 import com.bptn.powerlifting.models.Barbell;
+import com.bptn.powerlifting.models.Exercice;
+import com.bptn.powerlifting.models.WorkoutLog;
 import com.bptn.powerlifting.models.WorkoutPlan;
 
 public class Main {
@@ -48,6 +51,7 @@ public class Main {
 				break;
 			case 3:
 				System.out.println("Log Workout");
+				logWorkout(scanner);
 				break;
 			case 4:
 				System.out.println("View Personal Bests");
@@ -72,32 +76,9 @@ public class Main {
 
 	private static WorkoutPlan createWorkoutPlan(Scanner scanner) {
 		// ask movement type
-		String movement = "";
-		// condition to loop until user provide correct input
-		while (true) {
-			System.out.println("Please select a movement:");
-			System.out.println("[1] Squat");
-			System.out.println("[2] Bench Press");
-			System.out.println("[3] Deadlift");
-			System.out.print("Enter your choice (1-3): ");
-			int movementChoice = scanner.nextInt();
-			System.out.println();
-
-			if (movementChoice == 1) {
-				movement = "Squat";
-				break;
-			} else if (movementChoice == 2) {
-				movement = "Bench Press";
-				break;
-			} else if (movementChoice == 3) {
-				movement = "Deadlift";
-				break;
-			} else {
-				System.out.println("Invalid choice. Please enter a number between 1 and 3.");
-			}
-		}
+		String movementName = getMovementName(scanner);
 		// ask for target weight
-		System.out.print("Enter your target weight for " + movement + " (in lbs): ");
+		System.out.print("Enter your target weight for " + movementName + " (in lbs): ");
 		int goalWeight = scanner.nextInt();
 
 		// ask for experience level
@@ -128,7 +109,7 @@ public class Main {
 		int numSets = scanner.nextInt();
 
 		// Create and return the WorkoutPlan object
-		return new WorkoutPlan(movement, goalWeight, numSets, experienceLevel);
+		return new WorkoutPlan(movementName, goalWeight, numSets, experienceLevel);
 	}
 
 	private static void createBarbellLoad(Scanner scanner) {
@@ -144,6 +125,67 @@ public class Main {
 		Map<Double, Integer> plateLoad = barbell.calculatePlateLoad();
 		barbell.displayPlateRecommendation(plateLoad);
 
+	}
+
+	private static void logWorkout(Scanner scanner) {
+		WorkoutLog workoutLog = new WorkoutLog();
+		// userChoice
+		int userChoice;
+
+		// 1/ create exercice to add in WorkoutLog
+		// get movement name from user input
+		// loop do while to create exercice as much as user want
+		do {
+			String movementName = getMovementName(scanner);
+			System.out.println("Please type in the weight lifted for " + movementName + " today");
+			Double weightLifted = scanner.nextDouble();
+			System.out.println();
+			System.out.println("Type the number of reps");
+			int reps = scanner.nextInt();
+			LocalDate todayDate = LocalDate.now();
+			// create exercice object
+			Exercice exercice = new Exercice(weightLifted, reps, todayDate);
+
+			// add the exercice to workoutlog
+			workoutLog.addExercice(movementName, exercice);
+			System.out.println("Would you like to add a new exercice? type 1");
+			userChoice = scanner.nextInt();
+
+		} while (userChoice == 1);
+
+		// Display the workout logged
+		workoutLog.displayLog();
+
+	}
+
+	// create function to reuse the code
+	private static String getMovementName(Scanner scanner) {
+		// ask movement type
+		String movement = "";
+		// condition to loop until user provide correct input
+		while (true) {
+			System.out.println("Please select a movement:");
+			System.out.println("[1] Squat");
+			System.out.println("[2] Bench Press");
+			System.out.println("[3] Deadlift");
+			System.out.print("Enter your choice (1-3): ");
+			int movementChoice = scanner.nextInt();
+			System.out.println();
+
+			if (movementChoice == 1) {
+				movement = "Squat";
+				break;
+			} else if (movementChoice == 2) {
+				movement = "Bench Press";
+				break;
+			} else if (movementChoice == 3) {
+				movement = "Deadlift";
+				break;
+			} else {
+				System.out.println("Invalid choice. Please enter a number between 1 and 3.");
+			}
+		}
+		return movement;
 	}
 
 }
