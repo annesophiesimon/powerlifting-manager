@@ -62,7 +62,7 @@ public class Main {
 
 				break;
 			case 6:
-				System.out.println("Exit");
+				System.out.println("Thank you for using the powerlifting app!");
 				break;
 			default:
 				System.out.println("Sorry we didn't understand your request please contact customer service");
