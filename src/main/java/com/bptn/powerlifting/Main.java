@@ -30,7 +30,7 @@ public class Main {
 			System.out.println("Welcome!");
 			System.out.println();
 			System.out.println("[1] Plan a Workout");
-			System.out.println("[2] View Progress");
+			System.out.println("[2] View Workout");
 			System.out.println("[3] Log Workout");
 			System.out.println("[4] View Personal Bests");
 			System.out.println("[5] Barbell Loading Guide");
@@ -49,14 +49,17 @@ public class Main {
 				plan.displayPlan(plan);
 				break;
 			case 2:
-				System.out.println("View Progress");
+				System.out.println("View Workout");
+				viewProgress(scanner);
 				break;
 			case 3:
 				System.out.println("Log Workout");
 				logWorkout(scanner);
 				break;
 			case 4:
-				System.out.println("View Personal Bests");
+				System.out.println("view personal best");
+				viewBestPerformance(scanner);
+
 				break;
 			case 5:
 				System.out.println("Barbell Loading Guide");
@@ -168,6 +171,30 @@ public class Main {
 		System.out.println(workoutLog.getDetailsLog());
 		FileUtils.saveWorkoutLog(workoutLog.getDetailsLog(), filePath);
 
+	}
+
+	// method to view workout log
+	private static void viewProgress(Scanner scanner) {
+		System.out.println("Enter your username to continue logging your progress.");
+		// username variable
+		String username = scanner.next();
+		System.out.println("Welcome, " + username.substring(0, 1).toUpperCase() + username.substring(1));
+		String filePath = username + ".txt";
+		FileUtils.displayWorkoutLog(filePath);
+
+	}
+
+	// method to view personal best
+	private static void viewBestPerformance(Scanner scanner) {
+		System.out.println("Enter your username to continue logging your progress.");
+		// username variable
+		String username = scanner.next();
+		System.out.println("Welcome, " + username.substring(0, 1).toUpperCase() + username.substring(1));
+		String filePath = username + ".txt";
+		User user = new User(username);
+		WorkoutLog workoutLog = user.getWorkoutLog();
+		FileUtils.loadWorkoutLog(workoutLog, filePath);
+		workoutLog.displayPersonalBests();
 	}
 
 	// create function to reuse the code

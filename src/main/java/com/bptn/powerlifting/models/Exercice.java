@@ -13,6 +13,19 @@ public class Exercice {
 		this.date = date;
 	}
 
+	// add getter
+	public double getWeight() {
+		return weight;
+	}
+
+	public int getReps() {
+		return reps;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
 	@Override
 	public String toString() {
 		return "Weight: " + weight + " lbs, Reps: " + reps + ", Date: " + date;
