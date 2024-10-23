@@ -13,8 +13,9 @@ public class Exercice {
 		this.date = date;
 	}
 
-	public void display() {
-		System.out.println("Weight: " + weight + " lbs, Reps: " + reps + ", Date: " + date);
+	@Override
+	public String toString() {
+		return "Weight: " + weight + " lbs, Reps: " + reps + ", Date: " + date;
 	}
 
 }

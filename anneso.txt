@@ -1,0 +1,10 @@
+Workout Log:
+Exercise: Deadlift
+com.bptn.powerlifting.models.Exercice@13deb50e
+Exercise: Squat
+com.bptn.powerlifting.models.Exercice@239963d8
+Workout Log:
+Exercise: Bench Press
+Weight: 120.0 lbs, Reps: 2, Date: 2024-10-22
+Exercise: Squat
+Weight: 400.0 lbs, Reps: 3, Date: 2024-10-22

@@ -1,0 +1,3 @@
+Workout Log:
+Exercise: Deadlift
+Weight: 300.0 lbs, Reps: 3, Date: 2024-10-22

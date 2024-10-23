@@ -22,12 +22,16 @@ public class WorkoutLog {
 		this.log.put(movementName, exercice);
 	}
 
-	public void displayLog() {
-		System.out.println("Workout Log: ");
+	public String getDetailsLog() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("Workout Log:\n");
 		for (Map.Entry<String, Exercice> entry : log.entrySet()) {
-			System.out.println("Exercise: " + entry.getKey());
-			entry.getValue().display();
+			sb.append("Exercise: ").append(entry.getKey()).append("\n");
+			sb.append(entry.getValue().toString()).append("\n"); // Ensure Exercice's toString is well formatted
 		}
+
+		return sb.toString();
 	}
 
 }

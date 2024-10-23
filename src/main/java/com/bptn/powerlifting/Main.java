@@ -8,8 +8,10 @@ import org.fusesource.jansi.Ansi;
 
 import com.bptn.powerlifting.models.Barbell;
 import com.bptn.powerlifting.models.Exercice;
+import com.bptn.powerlifting.models.User;
 import com.bptn.powerlifting.models.WorkoutLog;
 import com.bptn.powerlifting.models.WorkoutPlan;
+import com.bptn.powerlifting.utils.FileUtils;
 
 public class Main {
 
@@ -128,7 +130,16 @@ public class Main {
 	}
 
 	private static void logWorkout(Scanner scanner) {
-		WorkoutLog workoutLog = new WorkoutLog();
+		// login or create user
+		System.out.println("Enter your username to continue logging your progress.");
+		// username variable
+		String username = scanner.next();
+		System.out.println("Welcome, " + username.substring(0, 1).toUpperCase() + username.substring(1));
+		String filePath = username + ".txt";
+		// create user object
+		User user = new User(username);
+
+		WorkoutLog workoutLog = user.getWorkoutLog();
 		// userChoice
 		int userChoice;
 
@@ -154,7 +165,8 @@ public class Main {
 		} while (userChoice == 1);
 
 		// Display the workout logged
-		workoutLog.displayLog();
+		System.out.println(workoutLog.getDetailsLog());
+		FileUtils.saveWorkoutLog(workoutLog.getDetailsLog(), filePath);
 
 	}
 
