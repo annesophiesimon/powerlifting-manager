@@ -1,5 +1,7 @@
 package com.bptn.powerlifting.models;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,14 +38,16 @@ public class Barbell {
 
 // calculate plate method 
 	public Map<Double, Integer> calculatePlateLoad() {
+
+		// HashMap for the result per side
+		Map<Double, Integer> platePerSide = new HashMap<>();
+
 		// calculate the weight to load(plates) in the barbell
 		// target weight minus the barbellWeight will give the weight to charge in
 		// plates
 		// divide the value/2 as we will charge each side equally
 		double weightToLoadPerSide = (targetWeight - barbellWeight) / 2;
 
-		// HashMap for the result per side
-		Map<Double, Integer> platePerSide = new HashMap<>();
 		// In powerlifting we load heaviest plates first so we need to have the plates
 		// in descending order
 		// Loop over plates
@@ -62,7 +66,6 @@ public class Barbell {
 			}
 
 		}
-
 		return platePerSide;
 	}
 
@@ -87,11 +90,20 @@ public class Barbell {
 				count -= 1;
 			}
 		}
+
+		// reverse platesSetup because bigger plate have to be first
+		// split string into an array
+		String[] plateArray = platesSetup.split(" ");
+		// reverse array
+		Collections.reverse(Arrays.asList(plateArray));
+		String reversedPlateSetup = String.join(" ", plateArray);
+
 		System.out.println("************************************************************");
 		System.out.println("*                 BARBELL LOADING GUIDE                    *");
 		System.out.println("************************************************************");
-		System.out.println("Target weight: " + targetWeight + "\n");
-		System.out.println(platesSetup + "| BAR | " + platesSetup + "\n");
+		System.out.println("Target weight: " + targetWeight + "\n\n");
+		System.out.println(
+				reversedPlateSetup + Ansi.ansi().fgBlue().a("|	BAR 45 lbs	| ").reset() + platesSetup + "\n\n");
 	}
 
 }

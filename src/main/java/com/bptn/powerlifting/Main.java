@@ -1,6 +1,7 @@
 package com.bptn.powerlifting;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ import com.bptn.powerlifting.models.User;
 import com.bptn.powerlifting.models.WorkoutLog;
 import com.bptn.powerlifting.models.WorkoutPlan;
 import com.bptn.powerlifting.utils.FileUtils;
+import com.bptn.powerlifting.utils.InputUtils;
 
 public class Main {
 
@@ -20,6 +22,7 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		// Variable user choice
 		int userChoice;
+
 		// Menu loop
 		do {
 
@@ -36,11 +39,13 @@ public class Main {
 			System.out.println("[5] Barbell Loading Guide");
 			System.out.println("[6] Exit");
 			System.out.println();
-			System.out.print("Please select an option (1-6): ____");
+			// System.out.print("Please select an option (1-6): ____");
+			userChoice = InputUtils.getIntInput(scanner, "Please select an option (1-6): ", 1, Integer.MAX_VALUE);
+
 			System.out.println();
 			System.out.println("************************************************************");
 
-			userChoice = scanner.nextInt();
+			// userChoice = scanner.nextInt();
 			switch (userChoice) {
 			case 1:
 				System.out.println("Plan a workout");
@@ -83,16 +88,15 @@ public class Main {
 		// ask movement type
 		String movementName = getMovementName(scanner);
 		// ask for target weight
-		System.out.print("Enter your target weight for " + movementName + " (in lbs): ");
-		int goalWeight = scanner.nextInt();
+		int goalWeight = InputUtils.getIntInput(scanner, "Enter your target weight for " + movementName + " (in lbs): ",
+				80, 900);
 
 		// ask for experience level
 		System.out.println("Select your experience level:");
 		System.out.println("[1] Beginner");
 		System.out.println("[2] Intermediate");
 		System.out.println("[3] Advanced");
-		System.out.print("Enter your choice (1-3): ");
-		int experienceChoice = scanner.nextInt();
+		int experienceChoice = InputUtils.getIntInput(scanner, "Enter your choice (1-3): ", 1, 3);
 		String experienceLevel = "";
 
 		switch (experienceChoice) {
@@ -110,8 +114,8 @@ public class Main {
 		}
 
 		// ask for the number of sets
-		System.out.print("Enter the number of sets you'd like to perform (e.g., 4): ");
-		int numSets = scanner.nextInt();
+		int numSets = InputUtils.getIntInput(scanner, "Enter the number of sets you'd like to perform (e.g., 4): ", 2,
+				10);
 
 		// Create and return the WorkoutPlan object
 		return new WorkoutPlan(movementName, goalWeight, numSets, experienceLevel);
@@ -120,14 +124,41 @@ public class Main {
 	private static void createBarbellLoad(Scanner scanner) {
 		// ask target weight
 		double targetWeight = 0.0;
-		System.out.println("Please enter the weight of your choice");
-		// TO DO: handle try/catch for wrong input
-		targetWeight = scanner.nextDouble();
-		System.out.println();
+		// valid input
+		boolean validInput = false;
+		while (!validInput) {
+
+			try {
+				System.out.println("Please enter the weight of your choice");
+				// TO DO: handle try/catch for wrong input
+				targetWeight = scanner.nextDouble();
+
+				// check if the input is whitin the allowed range
+				if (targetWeight > 900) {
+					System.out.println("The weight entered is too high. Please enter a value less than 900 lbs.");
+
+				} else if (targetWeight > 0 && targetWeight <= 60) {
+					System.out.println("Please use an empty bar or body weight for your session.");
+					return; // return as user entered a valid number but don't need the BarbellLoad help
+
+				} else if (targetWeight <= 0) {
+					System.out.println("Please enter a positive value");
+
+				} else {
+					validInput = true; // break out the if input is valid
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid input. Please enter a numeric value for the weight.");
+				scanner.next(); // Clear the invalid input
+			}
+		}
 
 		Barbell barbell = new Barbell(targetWeight);
 
+		// calculate plate load
 		Map<Double, Integer> plateLoad = barbell.calculatePlateLoad();
+
+		// Display the recommendation
 		barbell.displayPlateRecommendation(plateLoad);
 
 	}
@@ -151,19 +182,18 @@ public class Main {
 		// loop do while to create exercice as much as user want
 		do {
 			String movementName = getMovementName(scanner);
-			System.out.println("Please type in the weight lifted for " + movementName + " today");
-			Double weightLifted = scanner.nextDouble();
+			Double weightLifted = InputUtils.getDoubleInput(scanner,
+					"Please type in the weight lifted for " + movementName + " today", 5, 900);
 			System.out.println();
-			System.out.println("Type the number of reps");
-			int reps = scanner.nextInt();
+			int reps = InputUtils.getIntInput(scanner, "Type the number of reps", 1, 50);
 			LocalDate todayDate = LocalDate.now();
 			// create exercice object
 			Exercice exercice = new Exercice(weightLifted, reps, todayDate);
 
 			// add the exercice to workoutlog
 			workoutLog.addExercice(movementName, exercice);
-			System.out.println("Would you like to add a new exercice? type 1");
-			userChoice = scanner.nextInt();
+			userChoice = InputUtils.getIntInput(scanner, "Would you like to add a new exercice? type 1", 1,
+					Integer.MAX_VALUE);
 
 		} while (userChoice == 1);
 
@@ -207,8 +237,9 @@ public class Main {
 			System.out.println("[1] Squat");
 			System.out.println("[2] Bench Press");
 			System.out.println("[3] Deadlift");
-			System.out.print("Enter your choice (1-3): ");
-			int movementChoice = scanner.nextInt();
+			// System.out.print("Enter your choice (1-3): ");
+			int movementChoice = InputUtils.getIntInput(scanner, "Enter your choice (1-3): ", 1, 3);
+
 			System.out.println();
 
 			if (movementChoice == 1) {

@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.fusesource.jansi.Ansi;
+
 import com.bptn.powerlifting.models.Exercice;
 import com.bptn.powerlifting.models.WorkoutLog;
 
@@ -16,6 +18,7 @@ public class FileUtils {
 		try {
 			FileWriter writer = new FileWriter(filepath, true);
 			writer.write(workoutLogDetails);
+			System.out.println(Ansi.ansi().fgGreen().a("Workout successfuly logged").fgMagenta());
 			writer.close();
 
 		} catch (IOException e) {
@@ -36,7 +39,7 @@ public class FileUtils {
 
 				}
 			} catch (IOException e) {
-				System.out.println("Something went wrong" + e.getMessage());
+				System.out.println(Ansi.ansi().fgRed().a("Something went wrong" + e.getMessage()).fgMagenta());
 				e.printStackTrace();
 			}
 
@@ -77,7 +80,7 @@ public class FileUtils {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("No previous data found. Start logging your workouts!");
+			Ansi.ansi().fgBrightBlue().a("No previous data found. Start logging your workouts!").fgMagenta();
 		}
 	}
 

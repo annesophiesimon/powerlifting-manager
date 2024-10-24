@@ -1,0 +1,5 @@
+Workout Log:
+Exercise: Deadlift
+Weight: 567.0 lbs, Reps: 3, Date: 2024-10-23
+Exercise: Squat
+Weight: 789.0 lbs, Reps: 5, Date: 2024-10-23
