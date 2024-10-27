@@ -19,7 +19,6 @@ public abstract class WorkoutComponent {
 	}
 
 	// getter methods
-
 	public String getMovementName() {
 		return movementName;
 	}

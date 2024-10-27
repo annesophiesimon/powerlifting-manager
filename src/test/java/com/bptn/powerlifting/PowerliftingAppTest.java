@@ -3,7 +3,9 @@ package com.bptn.powerlifting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -14,8 +16,8 @@ import com.bptn.powerlifting.models.WorkoutLog;
 
 public class PowerliftingAppTest {
 
-	// test calculatePlateLoad class Barbell
-	// initialize object
+	// Test calculatePlateLoad class Barbell
+	// Initialize object
 	private Barbell myBarbell;
 	private WorkoutLog myWorkoutLog;
 
@@ -39,21 +41,22 @@ public class PowerliftingAppTest {
 
 	@Test
 	void testGetDetailLog() {
-		// create log
-		Map<String, Exercise> log = new HashMap<>();
-		Exercise exercice1 = new Exercise(300.0, 3, LocalDate.now());
-		Exercise exercice2 = new Exercise(300.0, 3, LocalDate.now());
+		// Create log
+		Map<String, List<Exercise>> log = new HashMap<>();
+		Exercise exercise1 = new Exercise(300.0, 3, LocalDate.now());
+		Exercise exercise2 = new Exercise(300.0, 3, LocalDate.now());
 
-		log.put("Squat", exercice1);
-		log.put("DeadLift", exercice2);
+		// Add exercises to lists for each movement
+		log.put("Squat", Arrays.asList(exercise1));
+		log.put("DeadLift", Arrays.asList(exercise2));
 
 		// create object
 		myWorkoutLog = new WorkoutLog(log);
 		// Define the expected output for getDetailsLog
 		StringBuilder expectedOutput = new StringBuilder();
 		expectedOutput.append("Workout Log:\n");
-		expectedOutput.append("Exercise: Squat\n").append(exercice1.getSummary()).append("\n");
-		expectedOutput.append("Exercise: DeadLift\n").append(exercice2.getSummary()).append("\n");
+		expectedOutput.append("Exercise: Squat\n").append(exercise1.getSummary()).append("\n");
+		expectedOutput.append("Exercise: DeadLift\n").append(exercise2.getSummary()).append("\n");
 
 		// Run the method and compare the result with the expected output
 		assertEquals(expectedOutput.toString(), myWorkoutLog.getDetailsLog(),

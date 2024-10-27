@@ -19,7 +19,6 @@ public class WorkoutPlan extends WorkoutComponent {
 	}
 
 	// getters
-
 	public int getNbSet() {
 		return this.nbSet;
 	}

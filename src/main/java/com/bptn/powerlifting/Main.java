@@ -197,7 +197,6 @@ public class Main {
 		} while (userChoice == 1);
 
 		// Display the workout logged
-		System.out.println(workoutLog.getDetailsLog());
 		FileUtils.saveWorkoutLog(workoutLog.getDetailsLog(), filePath);
 
 	}
