@@ -48,15 +48,14 @@ public class WorkoutLog {
 		return sb.toString();
 	}
 
-	public void displayPersonalBests() {
+	public String displayPersonalBests() {
 		// check if log is empty to display they don't have workout available to
 		// calculate bests record
 		if (log.isEmpty()) {
-			System.out.println(Ansi.ansi().fgRed().a("No workout data available.").fgMagenta());
-			return;
+			return Ansi.ansi().fgRed().a("No workout data available.").fgMagenta().toString();
 		}
-
-		System.out.println("Personal Bests:");
+		StringBuilder sb = new StringBuilder();
+		sb.append("Personal Bests:\n");
 		for (Map.Entry<String, List<Exercise>> entry : log.entrySet()) {
 			String movementName = entry.getKey();
 			List<Exercise> exercises = entry.getValue();
@@ -65,9 +64,10 @@ public class WorkoutLog {
 			Exercise best = exercises.stream().max(Comparator.comparingDouble(Exercise::getWeight)).orElse(null);
 
 			if (best != null) {
-				System.out.println("Movement: " + movementName);
-				System.out.println(best.getSummary());
+				sb.append("Movement: ").append(movementName).append("\n");
+				sb.append(best.getSummary()).append("\n");
 			}
 		}
+		return sb.toString().trim();
 	}
 }

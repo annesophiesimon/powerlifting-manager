@@ -197,6 +197,7 @@ public class Main {
 		} while (userChoice == 1);
 
 		// Display the workout logged
+		// fix I dont think it display anything
 		FileUtils.saveWorkoutLog(workoutLog.getDetailsLog(), filePath);
 
 	}
@@ -222,7 +223,8 @@ public class Main {
 		User user = new User(username);
 		WorkoutLog workoutLog = user.getWorkoutLog();
 		FileUtils.loadWorkoutLog(workoutLog, filePath);
-		workoutLog.displayPersonalBests();
+		// workoutLog.displayPersonalBests();
+		System.out.println(workoutLog.displayPersonalBests());
 	}
 
 	// create function to reuse the code
