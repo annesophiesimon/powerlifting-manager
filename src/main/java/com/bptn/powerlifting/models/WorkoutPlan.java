@@ -7,11 +7,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class WorkoutPlan extends WorkoutComponent {
 	private int nbSet; // number of set
-	private String experienceLevel; // beginner, intermediate, advanced // this will determine the gap increase in
-									// between set
+	private ExperienceLevel experienceLevel; // beginner, intermediate, advanced // this will determine the gap increase
+												// in
+	// between set
 
 	// constructor
-	public WorkoutPlan(String movementName, double targetWeight, int nbSet, String experienceLevel) {
+	public WorkoutPlan(String movementName, double targetWeight, int nbSet, ExperienceLevel experienceLevel) {
 		super(movementName, targetWeight, LocalDate.now());
 		this.nbSet = nbSet;
 		this.experienceLevel = experienceLevel;
@@ -23,7 +24,7 @@ public class WorkoutPlan extends WorkoutComponent {
 		return this.nbSet;
 	}
 
-	public String getExperienceLevel() {
+	public ExperienceLevel getExperienceLevel() {
 		return this.experienceLevel;
 	}
 
@@ -42,28 +43,20 @@ public class WorkoutPlan extends WorkoutComponent {
 		System.out.println("************************************************************");
 	}
 
+	// calculate starting weight based on experienceLevel
+	public double calculateStartingWeight() {
+		return weight * experienceLevel.getStartingPercentage();
+	}
+
 	// method to display plan
 	public void displayPlan(WorkoutPlan plan) {
 		System.out.println("Your goal today is " + weight + " for " + movementName);
 		List<Integer> sets = new ArrayList<>();
-		double startingPercentage;
+		// double startingPercentage;
+		double startingPercentage = plan.getExperienceLevel().getStartingPercentage();
+
 		int targetWeight = (int) plan.getWeight();
 		int nbSet = plan.getNbSet();
-		String experienceLevel = plan.getExperienceLevel();
-		switch (experienceLevel.toLowerCase()) {
-		case "beginner":
-			startingPercentage = 0.6;
-			break;
-		case "intermediate":
-			startingPercentage = 0.7;
-			break;
-		case "advanced":
-			startingPercentage = 0.8;
-			break;
-		default:
-			startingPercentage = 0.75;
-			break;
-		}
 
 		// calculate weight for each set
 		// for a given number of set the last set will be the goal weight

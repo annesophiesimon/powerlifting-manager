@@ -7,8 +7,12 @@ import java.util.Scanner;
 
 import org.fusesource.jansi.Ansi;
 
+import com.bptn.powerlifting.models.Advanced;
 import com.bptn.powerlifting.models.Barbell;
+import com.bptn.powerlifting.models.Beginner;
 import com.bptn.powerlifting.models.Exercise;
+import com.bptn.powerlifting.models.ExperienceLevel;
+import com.bptn.powerlifting.models.Intermediate;
 import com.bptn.powerlifting.models.User;
 import com.bptn.powerlifting.models.WorkoutLog;
 import com.bptn.powerlifting.models.WorkoutPlan;
@@ -100,21 +104,13 @@ public class Main {
 		System.out.println("[2] Intermediate");
 		System.out.println("[3] Advanced");
 		int experienceChoice = InputUtils.getIntInput(scanner, "Enter your choice (1-3): ", 1, 3);
-		String experienceLevel = "";
-
-		switch (experienceChoice) {
-		case 1:
-			experienceLevel = "Beginner";
-			break;
-		case 2:
-			experienceLevel = "Intermediate";
-			break;
-		case 3:
-			experienceLevel = "Advanced";
-			break;
-		default:
-			System.out.println("Invalid choice. We will applicate Intermediate level by default");
-		}
+		// Define experience level
+		ExperienceLevel experienceLevel = switch (experienceChoice) {
+		case 1 -> new Beginner();
+		case 2 -> new Intermediate();
+		case 3 -> new Advanced();
+		default -> new Intermediate(); // Default to Intermediate if invalid input
+		};
 
 		// ask for the number of sets
 		int numSets = InputUtils.getIntInput(scanner, "Enter the number of sets you'd like to perform (e.g., 4): ", 2,
