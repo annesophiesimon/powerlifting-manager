@@ -8,7 +8,7 @@ import java.util.Scanner;
 import org.fusesource.jansi.Ansi;
 
 import com.bptn.powerlifting.models.Barbell;
-import com.bptn.powerlifting.models.Exercice;
+import com.bptn.powerlifting.models.Exercise;
 import com.bptn.powerlifting.models.User;
 import com.bptn.powerlifting.models.WorkoutLog;
 import com.bptn.powerlifting.models.WorkoutPlan;
@@ -74,8 +74,11 @@ public class Main {
 			case 6:
 				System.out.println("Thank you for using the powerlifting app!");
 				break;
-			default:
-				System.out.println("Sorry we didn't understand your request please contact customer service");
+			/*
+			 * default: System.out.
+			 * println("Sorry we didn't understand your request please contact customer service"
+			 * );
+			 */
 			}
 
 		} while (userChoice != 6);
@@ -177,9 +180,9 @@ public class Main {
 		// userChoice
 		int userChoice;
 
-		// 1/ create exercice to add in WorkoutLog
+		// 1/ create Exercise to add in WorkoutLog
 		// get movement name from user input
-		// loop do while to create exercice as much as user want
+		// loop do while to create exercise as much as user want
 		do {
 			String movementName = getMovementName(scanner);
 			Double weightLifted = InputUtils.getDoubleInput(scanner,
@@ -187,11 +190,11 @@ public class Main {
 			System.out.println();
 			int reps = InputUtils.getIntInput(scanner, "Type the number of reps", 1, 50);
 			LocalDate todayDate = LocalDate.now();
-			// create exercice object
-			Exercice exercice = new Exercice(weightLifted, reps, todayDate);
+			// create exercise object
+			Exercise exercise = new Exercise(weightLifted, reps, todayDate);
 
-			// add the exercice to workoutlog
-			workoutLog.addExercice(movementName, exercice);
+			// add the exercise to workoutlog
+			workoutLog.addExercise(movementName, exercise);
 			userChoice = InputUtils.getIntInput(scanner, "Would you like to add a new exercice? type 1", 1,
 					Integer.MAX_VALUE);
 
@@ -205,7 +208,7 @@ public class Main {
 
 	// method to view workout log
 	private static void viewProgress(Scanner scanner) {
-		System.out.println("Enter your username to continue logging your progress.");
+		System.out.println("Enter your username view your workout");
 		// username variable
 		String username = scanner.next();
 		System.out.println("Welcome, " + username.substring(0, 1).toUpperCase() + username.substring(1));

@@ -22,7 +22,7 @@ public class Barbell {
 
 // initialize availablePlate 
 
-	private Map<Double, String> initializePlates() {
+	public Map<Double, String> initializePlates() {
 		Map<Double, String> plates = new HashMap<>();
 		plates.put(55.0, "Red");
 		plates.put(45.0, "Blue");

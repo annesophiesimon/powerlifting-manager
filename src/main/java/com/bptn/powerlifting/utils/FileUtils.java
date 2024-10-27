@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 import org.fusesource.jansi.Ansi;
 
-import com.bptn.powerlifting.models.Exercice;
+import com.bptn.powerlifting.models.Exercise;
 import com.bptn.powerlifting.models.WorkoutLog;
 
 public class FileUtils {
@@ -68,9 +68,9 @@ public class FileUtils {
 						int reps = Integer.parseInt(parts[1].split(": ")[1]);
 						LocalDate date = LocalDate.parse(parts[2].split(": ")[1]);
 
-						// Create an Exercice object and add it to the WorkoutLog
-						Exercice exercice = new Exercice(weight, reps, date);
-						workoutLog.addExercice(currentExercise, exercice);
+						// Create an Exercise object and add it to the WorkoutLog
+						Exercise exercice = new Exercise(weight, reps, date);
+						workoutLog.addExercise(currentExercise, exercice);
 
 					}
 				}

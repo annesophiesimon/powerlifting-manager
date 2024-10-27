@@ -1,8 +1,7 @@
 Workout Log:
+Exercise: Deadlift
+Weight: 400.0 lbs, Reps: 4, Date: 2024-10-27
 Exercise: Bench Press
-Weight: 120.0 lbs, Reps: 2, Date: 2024-10-22
+Weight: 124.0 lbs, Reps: 4, Date: 2024-10-27
 Exercise: Squat
-Weight: 400.0 lbs, Reps: 3, Date: 2024-10-22
-Workout Log:
-Exercise: Squat
-Weight: 450.0 lbs, Reps: 3, Date: 2024-10-22
+Weight: 900.0 lbs, Reps: 3, Date: 2024-10-27

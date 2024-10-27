@@ -24,15 +24,4 @@ public class User {
 		return workoutLog;
 	}
 
-	// Save workout logs to a file
-	public void saveWorkoutToFile() {
-		// implementlogic to write workoutLog data to a file names
-		// username_userId_workout.txt
-	}
-
-	// Retrieve workout data from a file
-	public void loadWorkoutFromFile() {
-		// Implement logic to read workoutLog data from userId_workout.txt
-	}
-
 }
