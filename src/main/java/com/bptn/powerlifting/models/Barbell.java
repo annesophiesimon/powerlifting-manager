@@ -20,7 +20,7 @@ public class Barbell {
 		this.targetWeight = targetWeight;
 	}
 
-// initialize availablePlate 
+	// initialize availablePlate
 
 	public Map<Double, String> initializePlates() {
 		Map<Double, String> plates = new HashMap<>();
@@ -36,7 +36,7 @@ public class Barbell {
 		return plates;
 	}
 
-// calculate plate method 
+	// calculate plate method
 	public Map<Double, Integer> calculatePlateLoad() {
 
 		// HashMap for the result per side

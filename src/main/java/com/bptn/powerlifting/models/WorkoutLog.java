@@ -49,8 +49,8 @@ public class WorkoutLog {
 	}
 
 	public String displayPersonalBests() {
-		// check if log is empty to display they don't have workout available to
-		// calculate bests record
+		// Check if log is empty to display they don't have workout available to
+		// Calculate bests record
 		if (log.isEmpty()) {
 			return Ansi.ansi().fgRed().a("No workout data available.").fgMagenta().toString();
 		}

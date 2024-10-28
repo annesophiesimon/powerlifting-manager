@@ -27,8 +27,7 @@ public class WorkoutPlan extends WorkoutComponent {
 		return this.experienceLevel;
 	}
 
-	// display summary
-
+	// Display summary
 	public void displaySummary() {
 		System.out.println("************************************************************");
 		System.out.println("*                  Powerlifting Program Summary            *");
@@ -42,12 +41,12 @@ public class WorkoutPlan extends WorkoutComponent {
 		System.out.println("************************************************************");
 	}
 
-	// calculate starting weight based on experienceLevel
+	// Calculate starting weight based on experienceLevel
 	public double calculateStartingWeight() {
 		return weight * experienceLevel.getStartingPercentage();
 	}
 
-	// method to display plan
+	// Method to display plan
 	public void displayPlan(WorkoutPlan plan) {
 		System.out.println("Your goal today is " + weight + " for " + movementName);
 		List<Integer> sets = new ArrayList<>();
