@@ -19,6 +19,7 @@ public class FileUtils {
 			FileWriter writer = new FileWriter(filepath, true);
 			writer.write(workoutLogDetails);
 			System.out.println(Ansi.ansi().fgGreen().a("Workout successfuly logged").fgMagenta());
+			System.out.println(workoutLogDetails);
 			writer.close();
 
 		} catch (IOException e) {
@@ -44,7 +45,8 @@ public class FileUtils {
 			}
 
 		} else {
-			System.out.println("Sorry, you don't have workout logged yet, please save your workout first");
+			System.out.println(Ansi.ansi().fgRed()
+					.a("Sorry, you don't have workout logged yet, please save your workout first").fgMagenta());
 		}
 
 	}
